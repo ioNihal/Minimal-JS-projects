@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <title>Dark Mode Button</title>
+        <style>
+            body.light {
+                background: rgb(134,147,171);
+                background: linear-gradient(256deg, rgba(134,147,171,1) 0%, rgba(189,212,231,1) 64%);
+            }
+
+            body.dark {
+                background: rgb(26, 26, 26);
+                background: linear-gradient(256deg, rgba(26, 26, 26) 0%, rgb(24, 23, 23) 64%);
+                animation: darkBody 2s;
+            }
+            
+            button {
+            font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            div {
+                font-family: Arial, Helvetica, sans-serif;
+                border-radius: 5px;
+                box-shadow: 10px;
+                display: flex;
+                justify-items: center;
+                align-content: center;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            #elmnt {
+                width:35%;
+                height: 35%;
+                top: 30%;
+                left: 32.5%;
+                right: 32.5%;
+                position: absolute;
+                font-size: 28px;
+                cursor: default;
+            }
+
+            div.EMT {
+                background: rgb(214,214,224);
+            }
+            div.EMT1 {
+                background: rgb(51, 51, 51);
+                animation: darkElement 2s;
+            }
+
+            #btn,#btn1 {
+                width: 10%;
+                height: 7%;
+                top: 70%;
+                position: absolute;
+                border-radius: 5px;
+                font-size: 10px;
+                cursor: pointer;
+                border: none;
+            }
+            button.BUT {
+            background: rgb(19, 19, 19);
+            left: 37.5%;
+            right: 50%;
+            color: aliceblue;
+            }   
+
+            button.BUT1 {
+            background: rgb(19, 19, 19);
+            left: 52.5%;
+            right: 32.5%;
+            color: aliceblue;
+            }
+
+            button.BUT2 {
+            background: rgb(150, 148, 148);
+            left: 37.5%;
+            right: 50%;
+            color: rgb(15, 15, 15);
+            animation: darkButton 1s;
+            }   
+
+            button.BUT3 {
+            background: rgb(150, 148, 148);
+            left: 52.5%;
+            right: 32.5%;
+            color: rgb(15, 15, 15);
+            animation: darkButton1 1s;
+            }
+
+            .PARA {
+                color: black;
+            }
+
+            .PARA1 {
+                color:aliceblue;
+                animation: darkPara 1s;
+            }
+            @keyframes darkButton {
+                0% {background: rgb(19, 19, 19);
+                left: 37.5%;
+                right: 50%;
+                color: aliceblue;}
+                100% {background: rgb(150, 148, 148);
+                left: 37.5%;
+                right: 50%;
+                color: rgb(15, 15, 15);}
+            }
+            @keyframes darkButton1 {
+                0% {background: rgb(19, 19, 19);
+                left: 52.5%;
+                right: 32.5%;
+                color: aliceblue;}
+                100% {background: rgb(150, 148, 148);
+                left: 52.5%;
+                right: 32.5%;
+                color: rgb(15, 15, 15);}
+            }
+            
+            
+        </style>
+    </head>
+    <body class="light" id="body">
+        <div class="EMT" name="Element" id="elmnt">
+            <p class="PARA" name="paragraph" id="par">
+               Hey Buddy, Too Bright? <br>
+               Wanna see my Dark side?<br>
+               Hit the button Babe!
+            </p>
+        </div>
+        <button class="BUT" name="Button" id="btn" type="button" onclick="switchDark()">DARK MODE</button>
+        <button class="BUT1" name="Button" id="btn1" type="button" onclick="switchLight()">LIGHT MODE</button>
+
+        <script>
+            function switchDark() {
+                document.getElementById('body').setAttribute("class", "dark");
+                document.getElementById('btn').setAttribute("class", "BUT2");
+                document.getElementById('btn1').setAttribute("class", "BUT3");
+                document.getElementById('elmnt').setAttribute("class", "EMT1");
+                document.getElementById('par').setAttribute("class", "PARA1");
+                document.getElementById('par').innerHTML='Oops.., <br>Cant See? Calling Mama?<br>Switch on!';     
+            }
+            function switchLight() {
+                document.getElementById('body').setAttribute("class", "light");
+                document.getElementById('btn').setAttribute("class", "BUT");
+                document.getElementById('btn1').setAttribute("class", "BUT1");
+                document.getElementById('elmnt').setAttribute("class", "EMT");
+                document.getElementById('par').setAttribute("class", "PARA");
+                document.getElementById('par').innerHTML='Hey Buddy, Too Bright? <br> Wanna see my Dark side?<br>Hit the button Babe!';
+            }
+        </script>
+    </body>
+</html>
