@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .box-container {
+            max-width: 300px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .box-set {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            border: 1px solid black;
+            margin: 10px;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .nav-buttons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box-container">
+        <!-- Set 1 -->
+        <div class="box-set" id="set1">
+            <button class="box">Button 1</button>
+            <button class="box">Button 2</button>
+            <button class="box">Button 3</button>
+        </div>
+
+        <!-- Set 2 (Initially hidden) -->
+        <div class="box-set hidden" id="set2">
+            <button class="box">Button 4</button>
+            <button class="box">Button 5</button>
+            <button class="box">Button 6</button>
+        </div>
+
+        <!-- Set 3 (Initially hidden) -->
+        <div class="box-set hidden" id="set3">
+            <button class="box">Button 7</button>
+            <button class="box">Button 8</button>
+            <button class="box">Button 9</button>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button id="previous-button" onclick="showPreviousSet()">Previous</button>
+        <button id="next-button" onclick="showNextSet()">Next</button>
+    </div>
+
+    <script>
+        let currentSet = 1;
+        const totalSets = 3;
+
+        // Function to show the current set of boxes
+        function showCurrentSet() {
+            const allSets = document.querySelectorAll('.box-set');
+            allSets.forEach((set, index) => {
+                set.classList.toggle('hidden', index !== currentSet - 1);
+            });
+
+            // Show or hide "Previous" and "Next" buttons accordingly
+            const previousButton = document.getElementById('previous-button');
+            const nextButton = document.getElementById('next-button');
+            previousButton.disabled = currentSet === 1;
+            nextButton.disabled = currentSet === totalSets;
+        }
+
+        // Function to show the previous set of boxes
+        function showPreviousSet() {
+            if (currentSet > 1) {
+                currentSet--;
+                showCurrentSet();
+            }
+        }
+
+        // Function to show the next set of boxes
+        function showNextSet() {
+            if (currentSet < totalSets) {
+                currentSet++;
+                showCurrentSet();
+            }
+        }
+
+        // Initially show the first set of boxes
+        showCurrentSet();
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            height: 150px; /* Fixed height for the container */
+            overflow: hidden;
+        }
+
+        .box-row {
+            display: flex;
+            flex-wrap: nowrap;
+            transition: transform 0.5s ease;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            border: 1px solid black;
+            margin: 10px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box-container">
+        <div class="box-row">
+            <!-- First Set of Buttons (Initially visible) -->
+            <div class="box">Button 1</div>
+            <div class="box">Button 2</div>
+            <div class="box">Button 3</div>
+        </div>
+
+        <div class="box-row hidden">
+            <!-- Second Set of Buttons (Initially hidden) -->
+            <div class="box">Button 4</div>
+            <div class="box">Button 5</div>
+            <div class="box">Button 6</div>
+        </div>
+
+        <div class="box-row hidden">
+            <!-- Third Set of Buttons (Initially hidden) -->
+            <div class="box">Button 7</div>
+            <div class="box">Button 8</div>
+            <div class="box">Button 9</div>
+        </div>
+    </div>
+
+    <button id="previous-button">Previous</button>
+    <button id="next-button">Next</button>
+
+    <script>
+        let currentSet = 0;
+        const totalSets = 3;
+
+        // Function to show a specific set of buttons and hide others
+        function showSet(set, direction) {
+            const allRows = document.querySelectorAll('.box-row');
+
+            for (let i = 0; i < allRows.length; i++) {
+                const row = allRows[i];
+                const isCurrentSet = i === set;
+                const isPreviousSet = i === currentSet;
+                const isNextSet = i === currentSet + 1;
+
+                if (isCurrentSet) {
+                    row.style.transform = 'none';
+                } else if (isPreviousSet) {
+                    row.style.transform = direction === 'next' ? 'translateY(-100%)' : 'translateY(100%)';
+                } else if (isNextSet) {
+                    row.style.transform = direction === 'next' ? 'translateY(100%)' : 'translateY(-100%)';
+                } else {
+                    row.style.transform = direction === 'next' ? 'translateY(-200%)' : 'translateY(200%)';
+                }
+
+                row.classList.toggle('visible', isCurrentSet);
+                row.classList.toggle('hidden', !isCurrentSet);
+            }
+
+            currentSet = set;
+
+            // Show/Hide "Previous" and "Next" buttons accordingly
+            const previousButton = document.getElementById('previous-button');
+            previousButton.style.display = currentSet === 0 ? 'none' : 'block';
+
+            const nextButton = document.getElementById('next-button');
+            nextButton.style.display = currentSet === totalSets - 1 ? 'none' : 'block';
+        }
+
+        // Function to handle "Previous" button click
+        function onPreviousClick() {
+            const previousSet = Math.max(0, currentSet - 1);
+            showSet(previousSet, 'previous');
+        }
+
+        // Function to handle "Next" button click
+        function onNextClick() {
+            const nextSet = Math.min(totalSets - 1, currentSet + 1);
+            showSet(nextSet, 'next');
+        }
+
+        // Function to handle button click
+        function onButtonClick(event) {
+            const buttonId = event.target.id;
+            // Replace this with your desired functionality for each button
+            console.log("Button clicked: " + buttonId);
+        }
+
+        // Add click event listeners to buttons
+        const buttons = document.querySelectorAll('.box');
+        buttons.forEach(button => {
+            button.addEventListener('click', onButtonClick);
+        });
+
+        // Add event listeners to the "Previous" and "Next" buttons
+        const previousButton = document.getElementById('previous-button');
+        previousButton.addEventListener('click', onPreviousClick);
+
+        const nextButton = document.getElementById('next-button');
+        nextButton.addEventListener('click', onNextClick);
+
+        // Initially show the first set of buttons
+        showSet(0);
+    </script>
+</body>
+</html>
